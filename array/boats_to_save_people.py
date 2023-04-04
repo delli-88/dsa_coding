@@ -50,3 +50,6 @@ class Solution:
 #             min_f = min(min_f,min1)
 #         boats[0] = 1 + min_f
 #         return boats[0]
+
+
+# Problem : https://leetcode.com/problems/boats-to-save-people/
