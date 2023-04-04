@@ -1,4 +1,3 @@
-from math import inf
 from typing import List
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
@@ -18,7 +17,8 @@ class Solution:
             boats+=1
         
         return boats
-
+# TC - O(nlogn)
+# SC - O(1)
 
         #Recursion TLE
         """Approach
@@ -50,6 +50,5 @@ class Solution:
 #             min_f = min(min_f,min1)
 #         boats[0] = 1 + min_f
 #         return boats[0]
-
 
 # Problem : https://leetcode.com/problems/boats-to-save-people/
