@@ -11,6 +11,7 @@ class Solution:
         return min_count
     
 """
+Problem : https://leetcode.com/problems/optimal-partition-of-string/
 Approach
     We initialize min count of required substring to 1
     and an empty dictionary to store the substrings
