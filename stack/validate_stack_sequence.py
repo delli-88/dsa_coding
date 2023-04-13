@@ -1,5 +1,27 @@
 from typing import List
 class Solution:
+    def validateStackSequences(self, pushed, popped):
+        push_ptr, pop_ptr  = 0, 0
+        for i in range(len(pushed)):
+            pushed[push_ptr] = pushed[i]
+            while push_ptr >= 0 and pushed[push_ptr] == popped[pop_ptr]:
+                push_ptr-=1
+                pop_ptr+=1
+            push_ptr += 1
+        if push_ptr==0:
+            return True
+        else:
+            return False
+
+"""
+Problem : https://leetcode.com/problems/validate-stack-sequences/
+TC - O(n)
+SC - O(1)
+Optimal Approach:
+We use same approach as below, instead of using extra stack, we use the provided pushed stack as our stack
+"""
+
+class Solution:
     def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
         pop_ptr = 0
         stack = []
@@ -17,10 +39,9 @@ class Solution:
             return True
         
 """
-Problem : https://leetcode.com/problems/validate-stack-sequences/
 TC - O(n)
 SC - O(n)
-Optimal Approach:
+Approach:
 we take an empty stack
 we loop through the pushed array
     we push each element into stack
