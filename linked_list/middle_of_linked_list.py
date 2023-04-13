@@ -12,3 +12,11 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         return slow
+    
+"""
+Approach:
+Fast and slow pointer
+slow pointer moves 1 step
+fast pointer moves 2 steps
+By the time fast pointer reaches end, slow pointer will be in middle
+"""
