@@ -63,4 +63,3 @@ class Solution:
 
 print(Solution().findMaxSum([5,5,10,100,10,5],6))
 '''
-print(Solution().findMaxSum([6,5,10,100,10,5],6))
