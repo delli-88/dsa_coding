@@ -4,27 +4,31 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
 class Solution:
     def longestZigZag(self, root: Optional[TreeNode]) -> int:
-        return self.longestZigZagHelper(root, 0, None)
+        self.pathLength = 0
+        
+        def dfs(node, goLeft, steps):
+            if node:
+                self.pathLength = max(self.pathLength, steps)
+                if goLeft:
+                    dfs(node.left, False, steps + 1)
+                    dfs(node.right, True, 1)
+                else:
+                    dfs(node.left, False, 1)
+                    dfs(node.right, True, steps + 1)
+        
+        dfs(root, True, 0)
+        return self.pathLength
 
-    def longestZigZagHelper(self, node,  go_left, steps):
-        self.path_len = 0
-
-        if node==None:
-            return 0
-        self.path_len = max(self.path_len, steps+1)
-        if go_left:
-            self.longestZigZagHelper(node.left, False,steps+1)
-            self.longestZigZagHelper(node.right, True,1)
-        else:
-            self.longestZigZagHelper(node.left, False,1)
-            self.longestZigZagHelper(node.right, True,steps+1)
-
-
-        self.longestZigZagHelper(node.left, True,0)
-        self.longestZigZagHelper(node.right, True,0)
-
+'''
+Problem :
+Approach :
+We use dfs
+If goLeft is true, the zigzag path will continue to the left. We can't go left in the next step to continue this zigzag path because we're already going left in this step. As a result, we call dfs(node.left, false, steps + 1). We passed steps + 1 because we kept going in a zigzag pattern.
+opposite goes if goLeft is false
+'''
         
 
         
