@@ -21,8 +21,12 @@ class Solution:
 print(Solution().getSubarrayBeauty())
 '''
 Problem : https://leetcode.com/problems/sliding-subarray-beauty
-TC - O()
-SC - O()
+TC - O(n*50) -> O(n)
+SC - O(max(O(50),n - k + 1)))
 Approach : 
+As the constraints are less i.e. -50 to 50,
+We keep track of number of negative elements in a window
+we inc the freq of neg elements
+and we loop through the freq array, and we can append the nth smallest 
 
 '''
