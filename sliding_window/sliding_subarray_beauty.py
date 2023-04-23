@@ -18,7 +18,6 @@ class Solution:
                     break
         return sol
 
-print(Solution().getSubarrayBeauty())
 '''
 Problem : https://leetcode.com/problems/sliding-subarray-beauty
 TC - O(n*50) -> O(n)
