@@ -21,9 +21,10 @@ class Solution:
     
 '''
 Problem : https://leetcode.com/problems/unique-paths
-TC - O()
-SC - O()
+TC - O(M*N)
+SC - O(N)
 Approach : 
+We dont require entire mxn matrix, we just need an array which stores n cols, and it can act as prev array where we can get the values.
 '''
 
 
@@ -52,6 +53,13 @@ class Solution:
 
                     dp[r][c] = right+down
         return dp[0][0]
+'''
+'''
+TC - O(M*N)
+SC - O(M*N)
+Approach :
+we can convert the recursiove to iterative
+Approach will be same.
 '''
 
 
@@ -83,6 +91,9 @@ class Solution:
 TC - O(M*N)
 SC - O((N-1)+(M-1)) + O(M*N)
 Approach : 
+If we stand at a point say (i,j), we just need how many unique paths can be formed to right of it and down to it
+so, we just need right(i,j+1) and down(i+1,j), so we got right unique paths and down unique paths from recursion,
+our job is to add them and save at the current pos.
 '''
 
 # print(Solution().uniquePaths(3,7))
