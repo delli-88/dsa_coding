@@ -1,67 +1,89 @@
-# incorrect solution, needs to be modified
+
 from math import inf
+
+# dp - tabulation
 class Solution:
     def solve(self, n, m, grid):
-        visited = [[0 for _ in range(m)] for _ in range(n)]
-        robot1_first = self.helper(n,m,grid,visited,0,0,1)
-        robot2_second = self.helper(n,m,grid,visited,0,m-1,0)
-        choco_collection1 = robot1_first + robot2_second
 
-        visited = [[0 for _ in range(m)] for _ in range(n)]
-        robot2_first = self.helper(n,m,grid,visited,0,m-1,0)
-        robot1_second = self.helper(n,m,grid,visited,0,0,1)
-        choco_collection2 = robot2_first + robot1_second
-       
-        return max(choco_collection1,choco_collection2)
-    
-    def helper(self,n,m,grid,visited,r,c,robo):
+        dp = [[[-1 for _ in range(m)] for _ in range(m)] for _ in range(n)]
 
-        if r>n or c<0 or c>m:
-            return 0
+        for r in range(n-1,-1,-1):
+            for c1 in range(m):
+                for c2 in range(m):
+                    if r==n-1:
+                        if c1==c2:
+                            dp[r][c1][c2] = grid[r][c1]
+                        else:
+                            dp[r][c1][c2] = grid[r][c1]+grid[r][c2]
+                    else:
+
+                        if c1==c2:
+                            choco_count = grid[r][c1]
+                        else:
+                            choco_count = grid[r][c1]+grid[r][c2]
+
+                        col_dirs = [-1,0,1]
+                        maxi = 0
+
+                        for i in range(3):
+                            for j in range(3):
+                                pickup = -inf
+                                if c1+ col_dirs[i]>=0 and c1+ col_dirs[i]<m and c2+col_dirs[j]>=0 and c2+col_dirs[j]<m:
+                                    pickup = dp[r+1][c1+ col_dirs[i]][c2+col_dirs[j]]
+                                maxi = max(maxi, choco_count + pickup)
+                        dp[r][c1][c2] = maxi
+        return dp[0][0][-1]
+'''
+Problem : https://practice.geeksforgeeks.org/problems/chocolates-pickup/1
+TC - O(N*M*M)*9
+SC - O(N*M*M)
+Approach:
+We make both robots to travel simultaneously and return max
+'''
+
+'''
+# dp - memoization
+class Solution:
+    def solve(self, n, m, grid):
+        dp = [[[-1 for _ in range(m)] for _ in range(m)] for _ in range(n)]
+        return self.helper(0,0,m-1,grid,dp)
+
+    def helper(self, r, c1, c2, grid, dp):
+        row_len = len(grid)
+        col_len = len(grid[0])
+        if c1<0 or c1>=col_len or c2<0 or c2>=col_len:
+            return -inf
+
+        if r==row_len-1:
+            if c1==c2:
+                return grid[r][c1]
+            return grid[r][c1]+grid[r][c2]
         
-        if visited[r][c]==1:
-            return 0
-
-        if r==n-1:
-            return grid[r][c]
-
-        left = self.helper(n,m,grid,visited,r+1,c-1,robo)
-        down = self.helper(n,m,grid,visited,r+1,c,robo)
-        right = self.helper(n,m,grid,visited,r+1,c+1,robo)
-
-        max_row = 0
-        max_col = 0
-        maxi = 0
-        if robo:
-            if left>maxi:
-                maxi = left
-                max_row = r+1
-                max_col = c-1
-            if down>maxi:
-                maxi = down
-                max_row = r+1
-                max_col = c
-            if right>maxi:
-                maxi = right
-                max_row = r+1
-                max_col = c+1
+        if dp[r][c1][c2]!=-1:
+            return dp[r][c1][c2]
+        
+        if c1==c2:
+            choco_count = grid[r][c1]
         else:
-            if right>maxi:
-                maxi = right
-                max_row = r+1
-                max_col = c+1
-            if down>maxi:
-                maxi = down
-                max_row = r+1
-                max_col = c
-            if left>maxi:
-                maxi = left
-                max_row = r+1
-                max_col = c-1
-        
-        visited[max_row][max_col] = 1
+            choco_count = grid[r][c1]+grid[r][c2]
 
-        return grid[r][c] + maxi
+        col_dirs = [-1,0,1]
+        maxi = 0
+
+        for i in range(3):
+            for j in range(3):
+                pickup = self.helper(r+1,c1+col_dirs[i],c2+col_dirs[j],grid,dp)
+
+                maxi = max(maxi, choco_count + pickup)
+        
+        dp[r][c1][c2] = maxi
+        return dp[r][c1][c2]
+
+        
+TC - O(N*M*M) * 9
+SC -  O(N) + O(N*M*M)
+'''
+
 
 
 
