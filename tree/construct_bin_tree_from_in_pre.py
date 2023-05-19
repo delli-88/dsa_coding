@@ -12,21 +12,21 @@ class TreeNode:
 class Solution:
 
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        hash_map = {}
+        hash_map_inorder = {}
         for i in range(len(preorder)):
-            hash_map[inorder[i]] = i 
-        return self.buildTreeHelper(preorder,inorder,0,0,len(preorder)-1,hash_map)
+            hash_map_inorder[inorder[i]] = i 
+        return self.buildTreeHelper(preorder,inorder,0,0,len(preorder)-1,hash_map_inorder)
 
-    def buildTreeHelper(self, preorder, inorder, root_pos_pre, start, end, hash_map): 
+    def buildTreeHelper(self, preorder, inorder, root_pos_pre, start, end, hash_map_inorder): 
         if start>end:
             return None 
         if start==end:
             root = TreeNode(inorder[start])
             return root
         
-        root_pos_in = hash_map[preorder[root_pos_pre]]
-        left = self.buildTreeHelper(preorder, inorder, root_pos_pre+1,start,root_pos_in-1,hash_map)
-        right = self.buildTreeHelper(preorder, inorder, root_pos_pre+root_pos_in-start+1,root_pos_in+1,end,hash_map)
+        root_pos_in = hash_map_inorder[preorder[root_pos_pre]]
+        left = self.buildTreeHelper(preorder, inorder, root_pos_pre+1,start,root_pos_in-1,hash_map_inorder)
+        right = self.buildTreeHelper(preorder, inorder, root_pos_pre+root_pos_in-start+1,root_pos_in+1,end,hash_map_inorder)
 
         
         root = TreeNode(preorder[root_pos_pre])
