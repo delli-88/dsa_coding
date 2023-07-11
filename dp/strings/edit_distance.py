@@ -83,6 +83,7 @@ print(Solution().minDistance(word1 = "", word2 = "ros"))
 
 
 '''
+problem  :https://leetcode.com/problems/edit-distance/
 Approach :
 1.Create a 2D dynamic programming table dp with dimensions (len(word1)+1) x (len(word2)+1) and initialize all values to 0.
 2.Set the base cases: For each index i from 0 to the length of word2, set dp[0][i] = i to represent the minimum number of operations required to convert an empty string to word2[:i].
