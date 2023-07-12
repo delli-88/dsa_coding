@@ -1,29 +1,22 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        dp = [[-1 for _ in range(len(s))] for _ in range(len(s))]
-        return self.longestPalindromeRecursive(s, 0, len(s)-1, dp)
-    
-    def longestPalindromeRecursive(self, s, idx1, idx2, dp):
-        if idx1>idx2:
-            return 0
+        dp = [[True for _ in range(len(s))] for _ in range(len(s))]
+
+        maxi = 0
         
-        if idx1==idx2:
+        for i in range(len(s)-1,-1,-1):
+            for j in range(i+1,len(s)):
+                if s[i]==s[j] and dp[i+1][j-1]:
+                    dp[i][j] = True
+                    maxi = max(maxi, j-i+1)
+                else:
+                    dp[i][j] = False
+        if maxi==0:
             return 1
-        
-        if dp[idx1][idx2]!=-1:
-            return dp[idx1][idx2]
-        
-        if s[idx1]==s[idx2]:
-            return 2+ self.longestPalindromeRecursive(s, idx1+1, idx2-1, dp)
-        
-        opt1 = self.longestPalindromeRecursive(s, idx1+1, idx2, dp)
-        opt2 = self.longestPalindromeRecursive(s, idx1, idx2-1, dp)
+        return maxi
+         
 
-        dp[idx1][idx2] = max(opt1, opt2)
-        return dp[idx1][idx2]
-
-
-print(Solution().longestPalindrome(s = "abeedba"))
+print(Solution().longestPalindrome(s = "abc"))
 
 
 '''
