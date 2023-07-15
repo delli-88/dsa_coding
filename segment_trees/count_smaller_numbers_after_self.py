@@ -56,7 +56,7 @@ class Solution:
     #     return str(self.__dict__)
 
 
-print(Solution().countSmaller([0,-1]))
+print(Solution().countSmaller([5,2,6,1]))
 
 '''
 Problem : https://leetcode.com/problems/count-of-smaller-numbers-after-self/
