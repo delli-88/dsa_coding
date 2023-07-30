@@ -20,7 +20,7 @@ class Solution:
 # TC - O(nlogn)
 # SC - O(1)
 
-        #Recursion TLE
+        # Recursion TLE
         """Approach
         For every pos there will be pos to len options.
         so, check if each weight is less than limit or not
